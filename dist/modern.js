@@ -17,7 +17,7 @@ const motionButton=document.querySelector('#motion-toggle');
 const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 let userPaused=reducedMotion.matches||Boolean(navigator.connection?.saveData);
 let heroVisible=true;
-function updateMotionButton(){const paused=heroVideo.paused;motionButton.setAttribute('aria-label',paused?'Включить фоновое видео':'Остановить фоновое видео');motionButton.setAttribute('aria-pressed',String(paused));motionButton.innerHTML=paused?'▶ <span>Включить</span>':'Ⅱ <span>Пауза</span>'}
+function updateMotionButton(){const paused=heroVideo.paused;motionButton.setAttribute('aria-label',paused?'Включить фоновое видео':'Остановить фоновое видео');motionButton.setAttribute('aria-pressed',String(paused));motionButton.innerHTML=paused?'<span class="play-icon play-small" aria-hidden="true"></span><span>Включить</span>':'<span class="pause-icon" aria-hidden="true"></span><span>Пауза</span>'}
 async function playHero(){if(!heroVideo.getAttribute('src')){heroVideo.src=heroVideo.dataset.src;heroVideo.load()}try{await heroVideo.play()}catch{}updateMotionButton()}
 motionButton.addEventListener('click',()=>{userPaused=!heroVideo.paused;if(userPaused){heroVideo.pause();updateMotionButton()}else{playHero()}});
 heroVideo.addEventListener('play',updateMotionButton);heroVideo.addEventListener('pause',updateMotionButton);
